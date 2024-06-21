@@ -23,7 +23,8 @@ class CartController extends Controller
         foreach ($cartItems as $item) {
             $totalAmount += $item['price'] * $item['quantity'];
             if ($item['discount'] !== 'No discount') {
-                $totalDiscount += ($item['price'] * $item['quantity'] * ((int)$item['discount']) / 100);
+                $discountPercent = (int) filter_var($item['discount'], FILTER_SANITIZE_NUMBER_INT);
+                $totalDiscount += ($item['price'] * $item['quantity'] * $discountPercent / 100);
             }
         }
 
